@@ -1,0 +1,45 @@
+{
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "babel-eslint",
+  "rules": {
+    "no-use-before-define": 0,
+    "no-tabs": 0,
+    "no-plusplus": 0,
+    "no-inner-declarations": 0,
+    "no-shadow": 0,
+    "import/prefer-default-export": 0,
+    "no-underscore-dangle": 0,
+    "indent": 0,
+    "prefer-template": 0,
+    "quote-props": 0,
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "never",
+        "objects": "never",
+        "imports": "never",
+        "exports": "never",
+        "functions": "ignore"
+      }
+    ],
+    "spaced-comment": 0,
+    "no-param-reassign": 0,
+    "object-property-newline": 0,
+    "no-continue": 0,
+    "no-useless-return": 0,
+    "no-mixed-operators": 0,
+    "max-len": 0,
+    "no-else-return": 0,
+    "no-lonely-if": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ],
+    "no-bitwise": 0,
+    "prettier/prettier": "error"
+  },
+  "plugins": ["prettier"]
+}
