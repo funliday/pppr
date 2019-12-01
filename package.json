@@ -1,7 +1,7 @@
 {
   "name": "funliday-prerender",
   "version": "1.0.0",
-  "description": "For web prerender",
+  "description": "For crawler prerender",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
