@@ -10,9 +10,9 @@ const ShowUserAgent = {
 
   beforeSend: (req, res, next) => {
     console.log(
-      `${new Date()} user-agent: ${req.headers['user-agent']} for ${
-        req.prerender.url
-      }`
+      `${new Date().toISOString()} user-agent: ${
+        req.headers['user-agent']
+      } for ${req.prerender.url}`
     );
 
     next();
