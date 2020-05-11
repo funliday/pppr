@@ -6,6 +6,8 @@ dotenv.config();
 
 const server = prerender({
   chromeLocation: '/app/.apt/usr/bin/google-chrome',
+  logRequests: true,
+  pageLoadTimeout: +process.env.PRERENDER_PAGE_LOAD_TIMEOUT,
   waitAfterLastRequest: +process.env.PRERENDER_WAIT_AFTER_LAST_REQUEST
 });
 
