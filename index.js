@@ -15,8 +15,6 @@ const ShowUserAgent = {
   init: () => {},
 
   beforeSend: (req, res, next) => {
-    console.log(`headers: ${JSON.stringify(req.headers)}`);
-
     console.log(
       `${new Date().toISOString()} user-agent: ${
         req.headers['user-agent']
