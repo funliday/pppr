@@ -19,6 +19,7 @@
     "express-winston": "^3.0.1",
     "http-errors": "~1.6.3",
     "nodemon": "^1.19.4",
+    "pug": "^2.0.4",
     "puppeteer": "^3.0.4",
     "winston": "^3.1.0"
   },

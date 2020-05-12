@@ -51,7 +51,7 @@ app.use(
         res.statusCode
       } ${code} ${contentLength} - ${res.responseTime} ms "${
         req.headers['user-agent']
-      }" "${req.funliday.os},${req.funliday.version},${req.funliday.language}"`;
+      }"`;
     },
     format: logFormat
   })
