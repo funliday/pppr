@@ -37,9 +37,17 @@ router.get('/', async (req, res) => {
     await page.setUserAgent(userAgent);
   }
 
-  await page.goto(url, {
+  const response = await page.goto(url, {
     waitUntil: 'networkidle2'
   });
+
+  const chain = response.request().redirectChain();
+
+  if (chain.length === 1) {
+    req.logd(`from ${chain[0].url()} to ${chain[0]._frame._url}`);
+
+    return res.redirect(301, chain[0]._frame._url);
+  }
 
   const content = await page.content();
 
