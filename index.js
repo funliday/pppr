@@ -1,5 +1,4 @@
 const prerender = require('prerender');
-const memoryCache = require('prerender-memory-cache');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -26,6 +25,5 @@ const ShowUserAgent = {
 };
 
 server.use(ShowUserAgent);
-server.use(memoryCache);
 
 server.start();
