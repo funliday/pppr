@@ -37,9 +37,17 @@ router.get('/', async (req, res) => {
     await page.setUserAgent(userAgent);
   }
 
-  const response = await page.goto(url, {
-    waitUntil: 'networkidle2'
-  });
+  let response;
+
+  try {
+    response = await page.goto(url, {
+      waitUntil: 'networkidle2'
+    });
+  } catch (error) {
+    req.loge(error);
+
+    return res.sendStatus(500);
+  }
 
   if (!response) {
     return res.sendStatus(500);
