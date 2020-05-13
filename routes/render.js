@@ -80,6 +80,8 @@ router.get('/', async (req, res) => {
       req.loge(error);
 
       if (i === RETRY_TIMES - 1) {
+        await page.close();
+
         return res.sendStatus(500);
       }
 
@@ -94,6 +96,8 @@ router.get('/', async (req, res) => {
   // has redirect
   if (chain.length === 1) {
     const redirectUrl = handleRedirect(chain, req.logd);
+
+    await page.close();
 
     return res.redirect(301, redirectUrl);
   }
