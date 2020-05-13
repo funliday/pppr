@@ -1,6 +1,7 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const dotenv = require('dotenv');
+const LRU = require('lru-cache');
 const { Pool } = require('pg');
 const { ExtendExpressMethod } = require('../middlewares/extend-express-method');
 
@@ -12,6 +13,11 @@ const pool = new Pool({
     rejectUnauthorized: false
   },
   application_name: 'funliday-prerender'
+});
+
+const cache = new LRU({
+  max: 50,
+  maxAge: 1000 * 60 * 5 // 5 mins
 });
 
 const QueryString = {
@@ -35,6 +41,14 @@ router.get('/', async (req, res) => {
   await pool.query(QueryString.INSERT_HISTORY, [url, language, ua]);
 
   req.logd(`url: ${url}`);
+
+  let content = cache.get(url);
+
+  if (content) {
+    req.logi(`Retrieve ${url} via cache`);
+
+    return res.send(content);
+  }
 
   if (!browser) {
     browser = await launchBrowser();
@@ -71,7 +85,11 @@ router.get('/', async (req, res) => {
     return res.redirect(301, redirectUrl);
   }
 
-  const content = await page.content();
+  req.logi(`Retrieve ${url} via headless chrome`);
+
+  content = await page.content();
+
+  cache.set(url, content);
 
   return res.send(content);
 });
