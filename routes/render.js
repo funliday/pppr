@@ -32,7 +32,7 @@ const RETRY_TIMES = 5;
 const router = express.Router();
 
 let browser;
-let page;
+let browserUserAgent;
 
 router.use(ExtendExpressMethod);
 
@@ -52,7 +52,16 @@ router.get('/', async (req, res) => {
 
   if (!browser) {
     browser = await launchBrowser();
+
+    browserUserAgent = (await browser.userAgent()).replace(
+      'HeadlessChrome',
+      'Chrome'
+    );
   }
+
+  const page = await browser.newPage();
+
+  await page.setUserAgent(browserUserAgent);
 
   let response;
 
@@ -94,6 +103,8 @@ router.get('/', async (req, res) => {
   content = await page.content();
 
   cache.set(url, content);
+
+  await page.close();
 
   return res.send(content);
 });
@@ -137,15 +148,6 @@ const launchBrowser = async () => {
       '--disable-dev-shm-usage'
     ]
   });
-
-  const userAgent = (await browser.userAgent()).replace(
-    'HeadlessChrome',
-    'Chrome'
-  );
-
-  page = await browser.newPage();
-
-  await page.setUserAgent(userAgent);
 
   return browser;
 };
