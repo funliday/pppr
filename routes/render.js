@@ -41,12 +41,22 @@ router.get('/', async (req, res) => {
     waitUntil: 'networkidle2'
   });
 
-  const chain = response.request().redirectChain();
+  const request = response.request();
 
+  if (!request) {
+    return res.sendStatus(500);
+  }
+
+  const chain = request.redirectChain();
+
+  // has redirect
   if (chain.length === 1) {
-    req.logd(`from ${chain[0].url()} to ${chain[0]._frame._url}`);
+    const originalUrl = chain[0].url();
+    const redirectUrl = chain[0]._frame._url;
 
-    return res.redirect(301, chain[0]._frame._url);
+    req.logd(`from ${originalUrl} to ${redirectUrl}`);
+
+    return res.redirect(301, redirectUrl);
   }
 
   const content = await page.content();
