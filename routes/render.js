@@ -27,6 +27,8 @@ INSERT INTO prerender_history (url, language, user_agent)
   `
 };
 
+const RETRY_TIMES = 5;
+
 const router = express.Router();
 
 let browser;
@@ -54,25 +56,29 @@ router.get('/', async (req, res) => {
 
   let response;
 
-  try {
-    response = await page.goto(url, {
-      waitUntil: 'networkidle2'
-    });
-  } catch (error) {
-    req.loge(error);
+  for (let i = 0; i < RETRY_TIMES; i++) {
+    try {
+      response = await page.goto(url, {
+        waitUntil: 'networkidle2'
+      });
 
-    return res.sendStatus(500);
-  }
+      if (!response) {
+        throw new Error('response is null');
+      }
 
-  if (!response) {
-    return res.sendStatus(500);
+      break;
+    } catch (error) {
+      req.loge(error);
+
+      if (i === RETRY_TIMES - 1) {
+        return res.sendStatus(500);
+      }
+
+      req.loge(`Attempt to ${i + 1}/${RETRY_TIMES} retries to retrieve ${url}`);
+    }
   }
 
   const request = response.request();
-
-  if (!request) {
-    return res.sendStatus(500);
-  }
 
   const chain = request.redirectChain();
 
