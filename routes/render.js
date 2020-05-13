@@ -1,9 +1,23 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const dotenv = require('dotenv');
+const { Pool } = require('pg');
 const { ExtendExpressMethod } = require('../middlewares/extend-express-method');
 
 dotenv.config();
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+  application_name: 'funliday-prerender'
+});
+
+const QueryString = {
+  INSERT_HISTORY: `
+INSERT INTO prerender_history (url, language, user_agent)
+  VALUES ($1, $2, $3)
+  `
+};
 
 const router = express.Router();
 
@@ -13,28 +27,15 @@ let page;
 router.use(ExtendExpressMethod);
 
 router.get('/', async (req, res) => {
-  const url = buildUrl(req.query);
+  const { url, language } = buildUrl(req.query);
+  const ua = req.headers['user-agent'];
+
+  await pool.query(QueryString.INSERT_HISTORY, [url, language, ua]);
 
   req.logd(`url: ${url}`);
 
   if (!browser) {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage'
-      ]
-    });
-
-    const userAgent = (await browser.userAgent()).replace(
-      'HeadlessChrome',
-      'Chrome'
-    );
-
-    page = await browser.newPage();
-
-    await page.setUserAgent(userAgent);
+    browser = await launchBrowser();
   }
 
   let response;
@@ -63,10 +64,7 @@ router.get('/', async (req, res) => {
 
   // has redirect
   if (chain.length === 1) {
-    const originalUrl = chain[0].url();
-    const redirectUrl = chain[0]._frame._url;
-
-    req.logd(`from ${originalUrl} to ${redirectUrl}`);
+    const redirectUrl = handleRedirect(chain, req.logd);
 
     return res.redirect(301, redirectUrl);
   }
@@ -85,8 +83,17 @@ const buildUrl = query => {
 
   const searchParams = new URLSearchParams(urlObj.searchParams.toString());
 
+  let language = '';
+
   Object.entries(query).forEach(entry => {
-    searchParams.append(entry[0], entry[1]);
+    const key = entry[0];
+    const value = entry[1];
+
+    if (key === 'hl') {
+      language = value;
+    }
+
+    searchParams.append(key, value);
   });
 
   const querystring = searchParams.toString();
@@ -95,7 +102,41 @@ const buildUrl = query => {
 
   url = querystring ? url + '?' + querystring : url;
 
-  return url;
+  return {
+    url,
+    language
+  };
+};
+
+const launchBrowser = async () => {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage'
+    ]
+  });
+
+  const userAgent = (await browser.userAgent()).replace(
+    'HeadlessChrome',
+    'Chrome'
+  );
+
+  page = await browser.newPage();
+
+  await page.setUserAgent(userAgent);
+
+  return browser;
+};
+
+const handleRedirect = (chain, logger) => {
+  const originalUrl = chain[0].url();
+  const redirectUrl = chain[0]._frame._url;
+
+  logger(`from ${originalUrl} to ${redirectUrl}`);
+
+  return redirectUrl;
 };
 
 module.exports = router;
