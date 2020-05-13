@@ -85,18 +85,14 @@ const buildUrl = query => {
 
   const searchParams = new URLSearchParams(urlObj.searchParams.toString());
 
-  let language = '';
-
   Object.entries(query).forEach(entry => {
     const key = entry[0];
     const value = entry[1];
 
-    if (key === 'hl') {
-      language = value;
-    }
-
     searchParams.append(key, value);
   });
+
+  const language = searchParams.get('hl');
 
   const querystring = searchParams.toString();
 
