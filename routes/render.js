@@ -40,8 +40,6 @@ router.get('/', async (req, res) => {
 
   await pool.query(QueryString.INSERT_HISTORY, [url, language, ua]);
 
-  req.logd(`url: ${url}`);
-
   let content = cache.get(url);
 
   if (content) {
