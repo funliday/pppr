@@ -41,6 +41,10 @@ router.get('/', async (req, res) => {
     waitUntil: 'networkidle2'
   });
 
+  if (!response) {
+    return res.sendStatus(500);
+  }
+
   const request = response.request();
 
   if (!request) {
