@@ -2,30 +2,14 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const dotenv = require('dotenv');
 const LRU = require('lru-cache');
-const { Pool } = require('pg');
 const { ExtendExpressMethod } = require('../middlewares/extend-express-method');
 
 dotenv.config();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  },
-  application_name: 'funliday-prerender'
-});
 
 const cache = new LRU({
   max: 50,
   maxAge: 1000 * 60 * 5 // 5 mins
 });
-
-const QueryString = {
-  INSERT_HISTORY: `
-INSERT INTO prerender_history (url, language, user_agent)
-  VALUES ($1, $2, $3)
-  `
-};
 
 const RETRY_TIMES = 5;
 
@@ -39,8 +23,6 @@ router.use(ExtendExpressMethod);
 router.get('/', async (req, res) => {
   const { url, language } = buildUrl(req.query);
   const ua = req.headers['user-agent'];
-
-  await pool.query(QueryString.INSERT_HISTORY, [url, language, ua]);
 
   let content = cache.get(url);
 
