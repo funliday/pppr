@@ -1,7 +1,7 @@
 {
-  "name": "funliday-prerender",
-  "version": "2.0.0",
-  "private": true,
+  "name": "pppr",
+  "version": "0.0.1",
+  "private": false,
   "scripts": {
     "start": "nodemon ./bin/www"
   },
