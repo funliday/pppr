@@ -30,11 +30,9 @@ npm i pppr
 
 ```js
 app.use(pppr());
-```
 
-equals to
+// equals to
 
-```js
 app.use(pppr({
   cache: true
 }));
@@ -59,23 +57,23 @@ app.use(pppr({
 }));
 ```
 
-### Retry times
+### Retry times (default is 5)
 
 If it renders occur timeout, you can retry render again.
 
 ```js
 app.use(pppr({
-  retryTimes: 5 // Render timeout retry count (default is 5)
+  retryTimes: 5
 }));
 ```
 
-### Endpoint
+### Endpoint (default is /render)
 
 If endpoint conflicts, you can change it.
 
 ```js
 app.use(pppr({
-  endpoint: '/render' // Render endpoint (default is /render)
+  endpoint: '/render'
 }));
 ```
 
