@@ -26,6 +26,10 @@ npm i pppr
 
 ## Configuration
 
+### Nginx
+
+[Configuration](https://gist.github.com/thoop/8165802)
+
 ### Cache (default is turn on)
 
 ```js
@@ -88,3 +92,7 @@ When Nginx received a request, it will check it is crawler or not. If it is craw
 I have a page, I want to prerender it.
 
 Ah, pppr.
+
+## Inspired from
+
+[prerender/prerender](https://github.com/prerender/prerender)
