@@ -54,7 +54,7 @@ If you want to modify cache parameter, you can do below configuration.
 app.use(pppr({
   cache: {
     max: 50, // LRU cache entry max count (default is 50)
-    maxAge: 300000 // LRU cache entry max age (milliseconds, default is 300009)
+    maxAge: 300000 // LRU cache entry max age (milliseconds, default is 300000)
   }
 }));
 ```
