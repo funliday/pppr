@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": false,
   "dependencies": {
-    "dotenv": "^6.1.0",
     "express": "~4.16.1",
     "lru-cache": "^5.1.1",
     "puppeteer": "^3.0.4"
