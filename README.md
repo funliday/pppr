@@ -26,7 +26,58 @@ npm i pppr
 
 ## Configuration
 
-TODO
+### Cache (default is turn on)
+
+```js
+app.use(pppr());
+```
+
+equals to
+
+```js
+app.use(pppr({
+  cache: true
+}));
+```
+
+If you want to turn off cache, you can do below configuration.
+
+```js
+app.use(pppr({
+  cache: false
+}));
+```
+
+If you want to modify cache parameter, you can do below configuration.
+
+```js
+app.use(pppr({
+  cache: {
+    max: 50, // LRU cache entry max count (default is 50)
+    maxAge: 300000 // LRU cache entry max age (milliseconds, default is 300009)
+  }
+}));
+```
+
+### Retry times
+
+If it renders occur timeout, you can retry render again.
+
+```js
+app.use(pppr({
+  retryTimes: 5 // Render timeout retry count (default is 5)
+}));
+```
+
+### Endpoint
+
+If endpoint conflicts, you can change it.
+
+```js
+app.use(pppr({
+  endpoint: '/render' // Render endpoint (default is /render)
+}));
+```
 
 ## How-to
 
