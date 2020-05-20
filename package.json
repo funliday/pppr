@@ -15,5 +15,28 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "^1.14.3"
-  }
+  },
+  "description": "pppr is a prerender service",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funliday/pppr.git"
+  },
+  "keywords": [
+    "prerender",
+    "funliday",
+    "pppr"
+  ],
+  "author": "Funliday Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/funliday/pppr/issues"
+  },
+  "homepage": "https://github.com/funliday/pppr#readme"
 }
