@@ -1,4 +1,4 @@
-![logo](https://user-images.githubusercontent.com/795839/82451299-5ead7800-9ae0-11ea-9de9-cfa9760d9d63.png)
+<p style="text-align: center"><img width="100" src="https://raw.githubusercontent.com/funliday/pppr/master/assets/logo.png" alt="pppr logo"></a></p>
 
 # pppr
 
