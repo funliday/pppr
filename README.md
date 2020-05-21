@@ -83,6 +83,21 @@ app.use(pppr({
 }));
 ```
 
+### Callback
+
+If you want to do something before/after render, you can do below configuration.
+
+```js
+app.use(pppr({
+  beforeRender: (userAgent, url) => {
+    // do something
+  },
+  afterRender: (userAgent, url, content) => {
+    // do something
+  }
+}))
+```
+
 ## How-to
 
 ![server side rendering](https://user-images.githubusercontent.com/795839/82450244-0b86f580-9adf-11ea-9585-3b0224aae0de.jpg)
