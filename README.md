@@ -2,9 +2,9 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/pppr"><img src="https://img.shields.io/npm/v/pppr" alt="pppr version"></a>
+  <a href="https://www.npmjs.com/package/pppr"><img src="https://img.shields.io/npm/dw/pppr" alt="pppr downloads"></a>
+  <a href="https://www.npmjs.com/package/pppr"><img src="https://img.shields.io/npm/l/pppr" alt="pppr license"></a>
 </p>
-
-![npm](https://img.shields.io/npm/v/pppr)
 
 # pppr
 
