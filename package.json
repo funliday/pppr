@@ -31,7 +31,8 @@
   "keywords": [
     "prerender",
     "funliday",
-    "pppr"
+    "pppr",
+    "puppeteer"
   ],
   "author": "Funliday Inc.",
   "license": "MIT",
