@@ -1,10 +1,12 @@
-<p style="text-align: center"><img width="100" src="https://raw.githubusercontent.com/funliday/pppr/master/assets/logo.png" alt="pppr logo"></a></p>
+<p align="center"><img width="100" src="https://raw.githubusercontent.com/funliday/pppr/master/assets/logo.png" alt="pppr logo"></a></p>
 
-# pppr
+<p align="center">
+  <a href="https://www.npmjs.com/package/pppr"><img src="https://img.shields.io/npm/v/pppr" alt="pppr version"></a>
+</p>
 
 ![npm](https://img.shields.io/npm/v/pppr)
 
-## Intro
+# pppr
 
 pppr is a zero-configuration prerender service. If you develop a web via client-side rendering (such as Vue, Angular, React...), you can integrate Nginx (or other reverse proxy) and pppr for search engine crawler (such as googlebot, bingbot...) and social network (such as Facebook, Twitter...) to render complete HTML.
 
