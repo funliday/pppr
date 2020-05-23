@@ -15,8 +15,6 @@ pppr is a zero-configuration prerender service. If you develop a web via client-
 ```js
 const pppr = require('pppr');
 
-// ...some expressjs configurations
-
 app.use(pppr());
 ```
 
