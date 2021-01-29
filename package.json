@@ -1,6 +1,6 @@
 {
   "name": "pppr",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": false,
   "dependencies": {
     "express": "~4.16.1",
