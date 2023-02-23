@@ -5,7 +5,7 @@
   "dependencies": {
     "express": "~4.16.1",
     "lru-cache": "^5.1.1",
-    "puppeteer": "^14.4.0"
+    "puppeteer": "^5.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
